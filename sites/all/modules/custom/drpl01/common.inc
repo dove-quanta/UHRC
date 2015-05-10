@@ -68,7 +68,28 @@ function userFilter(&$nodes, $types)
         unset($nodes[$nid]);
     }
 }
-
+function userFilterC(&$nodes, $types)
+{
+    global $user;
+    $rem_nids = array();
+    foreach ($nodes as $nid => $value) {
+        $node = node_load($nid);
+        if(!in_array($node->type,$types)){
+            $rem_nids[$nid]=0;
+            continue;
+        }
+        $contributors=array();
+        foreach($node->field_contributing_mda['und'] as $cid){
+            $contributors[]=$cid['target_id'];
+        }
+        if ( !in_array($user->field_mda['und'][0]['target_id'],$contributors)  ) {
+            $rem_nids[$nid]=0;
+        }
+    }
+    foreach ($rem_nids as $nid=>$value) {
+        unset($nodes[$nid]);
+    }
+}
 function compare_recommendations($c1, $c2)
 {
     return strcmp($c1[0], $c2[0]);

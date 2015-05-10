@@ -23,3 +23,5 @@ View-comments-data||||get_view_comments_data||||grids/data/view-comments-data.in
 View-replies||||get_view_replies||||grids/grids.inc||||MENU_NORMAL_ITEM|view-replies
 View-replies-data||||get_view_replies_data||||grids/data/view-replies-data||||MENU_NORMAL_ITEM|view-replies-data
 Add-recommendation-comment||||add_recommendation_comment||||grids/grids.inc||||MENU_NORMAL_ITEM|add-recommendation-comment
+Related Recommendation Table||||get_related_recommendation_table||||grids/grids.inc||||MENU_NORMAL_ITEM|related-recommendation-table
+Related Recommendation Grid Data||||get_related_recommendation_data||||grids/data/related-recommendation-data.inc||||MENU_NORMAL_ITEM|related-recommendation-data

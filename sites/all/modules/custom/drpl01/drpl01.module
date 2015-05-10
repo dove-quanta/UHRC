@@ -43,6 +43,7 @@ function drpl01_page_alter()
         "view-comments",
         "recommendation-grid",
         "admin-recommendation-table",
+        "related-recommendation-table",
         "mda-recommendation-table",
         "node/add/recommendation",
         "admin-dashboard",

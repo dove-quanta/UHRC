@@ -62,7 +62,22 @@ function get_mda_recommendation_table() {
   );
   return $page;
 }
+function get_related_recommendation_table() {
+    $IFRAME = isset($_GET['IFRAME']) ? $_GET['IFRAME'] : "";
+    $SEARCH = isset($_GET['SEARCH']) ? $_GET['SEARCH'] : "";
+    #$start = isset($_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : "0";
+    #$end = isset($_GET['iDisplayLength']) ? $_GET['iDisplayLength'] : "0";
+    $data = file_get_contents("sites/all/modules/custom/drpl01/grids/templates/related-recommendation-grid.inc");
 
+    $data = str_replace('{$IFRAME}', $IFRAME, $data);
+    $data = str_replace('{$SEARCH}', $SEARCH, $data);
+    #$data = str_replace('{$START}', $start, $data);
+    #$data = str_replace('{$END}', $end, $data);
+    $page = array(
+        '#markup' => $data,
+    );
+    return $page;
+}
 function get_comments() {
   $IFRAME = isset($_GET['IFRAME']) ? $_GET['IFRAME'] : "";
   $SEARCH = isset($_GET['SEARCH']) ? $_GET['SEARCH'] : "";
