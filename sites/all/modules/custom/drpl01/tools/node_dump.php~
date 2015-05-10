@@ -1,0 +1,57 @@
+<?php
+
+global $user;
+module_load_include('inc', 'node', 'node.pages');
+
+$nid=662;
+$node=node_load($nid);
+
+var_dump($node);
+/*$result = db_select('comment')
+                  ->fields('comment', array('name','subject'))
+                  ->condition('nid', $node->nid, '=')
+                  ->execute()
+                  ->fetchAssoc();
+foreach($result as $comment) {
+   print $comment;
+ }
+*/
+#print $node->field_verification_document['und'][0]['filename']."\n";
+
+
+/*
+
+ ["field_verification_document"]=>
+  array(1) {
+    ["und"]=>
+    array(1) {
+      [0]=>
+      array(11) {
+        ["fid"]=>
+        string(1) "1"
+        ["uid"]=>
+        string(1) "1"
+        ["filename"]=>
+        string(27) "Using R with Infobright.pdf"
+        ["uri"]=>
+        string(36) "public://Using R with Infobright.pdf"
+        ["filemime"]=>
+        string(15) "application/pdf"
+        ["filesize"]=>
+        string(6) "178702"
+        ["status"]=>
+        string(1) "1"
+        ["timestamp"]=>
+        string(10) "1409735399"
+        ["rdf_mapping"]=>
+        array(0) {
+        }
+        ["display"]=>
+        string(1) "1"
+        ["description"]=>
+        string(0) ""
+      }
+    }
+  }
+
+*/

@@ -1,0 +1,263 @@
+<?php
+
+function drpl01_menu()
+{
+    $query = "select nid from node where type='menu'";
+    $records = db_query($query);
+    $items = array();
+    $page_arguments = array();
+    foreach ($records as $record) {
+        $node = node_load($record->nid);
+        if (!empty($node->field_page_arguments['und'])) {
+            $page_arguments = explode(",", $node->field_page_arguments['und'][0]['value']);
+        }
+        $items[$node->field_url['und'][0]['value']] = array(
+            'title' => $node->title,
+            'access callback' => TRUE,
+            'page callback' => $node->field_page_callback['und'][0]['value'],
+            'page arguments' => $page_arguments,
+            'file' => $node->field_file['und'][0]['value'],
+        );
+    }
+    return $items;
+}
+
+function drpl01_page_alter()
+{
+    global $user;
+    $user_id = $user->uid;
+
+    if ($user_id <> 1) {
+        drupal_add_css('sites/all/libraries/font-awesome/css/font-awesome.min.css');
+        drupal_add_library('system', 'ui');
+        drupal_add_css('sites/all/libraries/DataTables-1.10.2/media/css/dataTables.jqueryui.css');
+        drupal_add_js('sites/all/libraries/DataTables-1.10.2/media/js/jquery.dataTables.min.js');
+        drupal_add_js('sites/all/libraries/DataTables-1.10.2/media/js/dataTables.jqueryui.js');
+        drupal_add_js('sites/all/modules/custom/drpl01/js/height.js');
+    }
+    $no_header_pages = array(
+        "mechanism",
+        "thematic_area",
+        "year-received",
+        "mda",
+        "view-comments",
+        "recommendation-grid",
+        "admin-recommendation-table",
+        "mda-recommendation-table",
+        "node/add/recommendation",
+        "admin-dashboard",
+        "mda-dashboard",
+        "admin/people",
+        "admin/people/create",
+        "node/add/recommendation-comments",
+        "node/add/ohrc-comment",
+    );
+    $db_pages = array(
+        "mechanism",
+        "year-received",
+    );
+    $path = request_path();
+    if ($path == 'dashboard' and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/dashboard.css');
+    }
+    if (in_array($path, $no_header_pages) and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+    }
+    if (in_array($path, $db_pages) and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/db.css');
+    }
+    if (preg_match("/node\/[0-9]+\/edit/", $path) and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+        $user_name = $user->name;
+        if (!($user_name == 'admin' or $user_id == 1)) {
+            drupal_add_js('sites/all/modules/custom/drpl01/js/recommendation-disable-fields.js');
+        }
+    }
+    if (preg_match("/user\/[0-9]+\/edit/", $path) and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+    }
+
+    if (preg_match("/users\//", $path) and $user_id <> 1) {
+        drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+    }
+    if (preg_match("/content\//", $path) and $user_id <> 1) {
+        /*$exceptions = array(
+          'content/contact-us',
+          'content/about-us',
+          'content/how-use-tool-0',
+          'content/about-database',
+          'content/background-info',
+          'content/answer-faqs');
+        if (in_array($path, $exceptions)) {
+          drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+        }*/
+        $iframe = isset($_GET['iframe']) ? $_GET['iframe'] : "";
+        if ($iframe == "no") {
+            $iframe = "0";
+        } else {
+            $iframe = "1";
+        }
+        if ($iframe == "1") {
+            drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
+        }
+    }
+    if ($path == "database_search") {
+        drupal_add_js('sites/all/modules/custom/drpl01/js/trigger.js');
+    }
+
+    if ($path == "node/add/recommendation") {
+        drupal_add_js('sites/all/modules/custom/drpl01/js/recommendation-form.js');
+    }
+
+    if (preg_match("/node\/[0-9]+\/edit/", $path) and $user->name == 'admin') {
+        drupal_add_js('sites/all/modules/custom/drpl01/js/recommendation-form.js');
+    }
+}
+
+function drpl01_menu_alter(&$items)
+{
+    $items['node/%node/view']['access callback'] = 'drpl01_disable_node_view';
+    $items['node/%node/view']['access arguments'] = array(1);
+}
+
+function drpl01_disable_node_view($node)
+{
+    global $user;
+    $user_id = $user->uid;
+    if ($user_id <> 1) {
+        return false;
+    }
+}
+
+function drpl01_form_alter(&$form, &$form_state, $form_id)
+{
+    global $user;
+    $user_id = $user->uid;
+    if ($user_id == 1) {
+        return;
+    }
+    if ($form_id == "recommendation_node_form") {
+
+        $form["body"]['#access'] = 0;
+        $form["title"]['#access'] = 0;
+        $form['actions']["delete"]['#access'] = 0;
+        $form['actions']["preview"]['#access'] = 0;
+        $form['#validate'][] = "recommendation_validate_handler";
+        $form['actions']['submit']['#submit'][] = "recommendation_submit_handler";
+    }
+    if ($form_id == "recommendation_comments_node_form") {
+
+        $form["body"]['#access'] = 0;
+        $form["title"]['#access'] = 0;
+        $form['actions']["delete"]['#access'] = 0;
+        $form['actions']["preview"]['#access'] = 0;
+        //$form['#validate'][] = "recommendation_comment_validate_handler";
+        $form['actions']['submit']['#submit'][] = "recommendation_comments_submit_handler";
+        $form['NID'] = array(
+            '#value' => $_GET['NID'],
+            '#type' => 'hidden',
+        );
+    }
+    if ($form_id == "ohrc_comment_node_form") {
+
+        $form["body"]['#access'] = 0;
+        $form['actions']["preview"]['#access'] = 0;
+        $form['actions']['submit']['#submit'][] = "comment_submit_handler";
+    }
+    if ($form_id == "page_node_form") {
+        $form['actions']["preview"]['#access'] = 0;
+        $form['actions']["delete"]['#access'] = 0;
+    }
+}
+
+function comment_submit_handler(&$form, &$form_state)
+{
+    $form_state['redirect'] = 'comment-grid';
+}
+
+function recommendation_validate_handler(&$form, &$form_state)
+{
+    if (form_get_errors())
+        return;
+    $title = '';
+    $title .= '|' . $form_state['values']['field_recommendation']['und'][0]['value'];
+    $title .= '|' . node_load($form_state['values']['field_thematic_area']['und'][0]['target_id'])->title;
+    $title .= '|' . node_load($form_state['values']['field_mechanism']['und'][0]['target_id'])->title;
+    $title .= '|' . $form_state['values']['field_sr_mandate']['und'][0]['value'];
+    $title .= '|' . node_load($form_state['values']['field_responsible_mda']['und'][0]['target_id'])->title;
+    if (!is_null($form_state['values']['field_contributing_mda']['und'][0]['target_id'])) {
+        $c = count($form_state['values']['field_contributing_mda']['und']);
+        for ($i = 0; $i < $c; $i++) {
+            $title .= '|' . node_load($form_state['values']['field_contributing_mda']['und'][$i]['target_id'])->title;
+        }
+    }
+    $title .= '|' . $form_state['values']['field_indicators']['und'][0]['value'];
+    $title .= '|' . $form_state['values']['field_baseline']['und'][0]['value'];
+    $title .= '|' . $form_state['values']['field_target']['und'][0]['value'];
+    if (!is_null($form_state['values']['field_means_of_verification']['und'][0]['target_id'])) {
+        $title .= '|' . node_load($form_state['values']['field_means_of_verification']['und'][0]['target_id'])->title;
+    }
+    $title .= '|' . $form_state['values']['field_other_means_of_verificatio']['und'][0]['value'];
+    $title .= '|' . $form_state['values']['field_status_of_implementation']['und'][0]['value'];
+    $form_state['values']['body']['und'][0]['value'] = $title;
+    $form_state['values']['body']['und'][0]['format'] = "plain_text";
+}
+
+function recommendation_submit_handler(&$form, &$form_state)
+{
+    global $user;
+    if ($user->name == 'admin') {
+        $form_state['redirect'] = 'admin-recommendation-table';
+    } else {
+        $form_state['redirect'] = 'mda-recommendation-table';
+    }
+}
+
+function recommendation_comments_submit_handler(&$form, &$form_state)
+{
+    global $user;
+    $subject = $form_state['values']['field_subject']['und'][0]['value'];
+    $comment_body = $form_state['values']['field_comment']['und'][0]['value'];
+    if ($user->name == 'admin') {
+        $form_state['redirect'] = 'admin-recommendation-table';
+    } else {
+
+        add_recommendation_comment($subject, $comment_body);
+        $query = array("query" => array(
+            "NID" => $form_state['values']['NID'],));
+        $form_state['redirect'] = array('view-comments', $query);
+    }
+}
+
+function add_recommendation_comment($subject, $comment_body)
+{
+    global $user;
+    $user = user_load($user->uid);
+    $NID = isset($_GET['NID']) ? $_GET['NID'] : "";
+    if (empty($NID)) {
+        return;
+    }
+    $comment = (object)array(
+        'nid' => $NID,
+        'cid' => '',
+        'pid' => 0,
+        'uid' => $user->uid,
+        'name' => $user->name,
+        'mail' => '',
+        'is_anonymous' => 0,
+        'homepage' => '',
+        'status' => COMMENT_PUBLISHED,
+        'subject' => $subject,
+        'language' => LANGUAGE_NONE,
+        'comment_body' => array(
+            LANGUAGE_NONE => array(
+                0 => array(
+                    'value' => $comment_body,
+                    'format' => 'plain_text'
+                )
+            )
+        ),
+    );
+    comment_submit($comment);
+    comment_save($comment);
+}

@@ -1,0 +1,8 @@
+name = drpl01
+description = Support module for Uganda Human Rights Commission Database
+package = Hostalite
+
+files[] = drpl01.module
+files[] = dbsearch.inc
+core = 7.x
+
