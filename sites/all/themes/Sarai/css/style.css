@@ -7150,3 +7150,7 @@ div.region.region-footer > section {
   font-weight: bold;
   text-align: center;
 }
+h2.title.comment-form {
+  font-size: 14px;
+  font-weight: bold;
+}
