@@ -262,3 +262,9 @@ function add_recommendation_comment($subject, $comment_body)
     comment_submit($comment);
     comment_save($comment);
 }
+function drpl01_mail(){
+
+}
+function drpl01_nofity(){
+
+}
