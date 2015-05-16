@@ -25,19 +25,23 @@ function send_notifications(){
         $title=node_load($node->field_rmda['und'][0]['target_id'])->title;
         $author=node_load($node->field_rid['und'][0]['target_id'])->uid;
         $email=get_emails_for_mda($node->field_rmda['und'][0]['target_id']);
+        $email='genesint@gmail.com';
         $cmdas=array();
+        $params=array();
         # template for admin role
         $admin_template=node_load(1962)->body['und'][0]['value'];
         # template for responsible mda
         $rmda_template=node_load(1963);
         # template for responsible admin
         $cmda_template=node_load(1964);
-        print $email."<br>";
+        $sent=drupal_mail('drpl01', 'admin', $email, language_default(), $params,'info@uhrcdatabase.org',TRUE);
+        if($sent){
+            print 'Successful<br>';
+        }
         foreach($node->field_cmda['und'] as $cmda){
             $cmdas[]=array($cmda['target_id'],get_emails_for_mda($cmda['target_id']));
         }
     }
-    var_dump($admin_template);
 
 }
 

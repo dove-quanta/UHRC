@@ -262,8 +262,16 @@ function add_recommendation_comment($subject, $comment_body)
     comment_submit($comment);
     comment_save($comment);
 }
-function drpl01_mail(){
-
+function drpl01_mail($key,&$message,$params){
+    $variables=array();
+    switch($key) {
+        case 'admin':
+            $langcode = $message['language']->language;
+            $body=node_load(1962)->body['und'][0]['value'];
+            $message['subject'] = t('Notification from !site', $variables, array('langcode' => $langcode));
+            $message['body'][] = t($body, $variables, array('langcode' => $langcode));
+            break;
+    }
 }
 function drpl01_nofity(){
 
