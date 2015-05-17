@@ -47,6 +47,7 @@ function send_notifications()
 
         # process email for responsible MDA
         $email=get_emails_for_mda($nid);
+        $email = 'genesint@gmail.com';
         $sent = drupal_mail('drpl01', 'rmda', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
         if ($sent) {
             print "Successful $nid<br>";
@@ -55,6 +56,7 @@ function send_notifications()
         # process emails for contributing MDA
         foreach ($node->field_cmda['und'] as $cmda) {
             $email = get_emails_for_mda($cmda['target_id'])[0];
+            $email = 'genesint@gmail.com';
             $params['cmda'] = $cmda;
             $sent = drupal_mail('drpl01', 'cmda', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
@@ -98,8 +100,8 @@ function usersOfRole($role)
     $users = array();
     $query = "select uid from users_roles where rid=$role";
     $records = db_query($query);
-    foreach ($records as $uid) {
-        $users[] = $uid;
+    foreach ($records as $record) {
+        $users[] = $record->uid;
     }
     return $users;
 }
