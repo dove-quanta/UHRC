@@ -1,15 +1,16 @@
 <?php
-function update_notification($notification, $node)
+function update_notification($notification, $node, $type)
 {
     $notification->field_rid['und'][0]['target_id'] = $node->nid;
     $notification->field_rmda['und'][0]['target_id'] = $node->field_responsible_mda['und'][0]['target_id'];
     for ($i = 0; $i < count($node->field_contributing_mda['und']); $i++) {
         $notification->field_cmda['und'][$i]['target_id'] = $node->field_contributing_mda['und'][$i]['target_id'];
     }
+    $notification->field_event_type['und'][0]['value'] = $type;
     node_save($notification);
 }
 
-function create_child_notifications($notification,$node)
+function create_child_notifications($notification, $node)
 {
 
     for ($i = 1; $i < count($node->field_responsible_mda['und']); $i++) {
@@ -78,9 +79,9 @@ function get_emails_for_contributing_mdas($node)
 
 function get_emails_for_responsible_mdas($node)
 {
-    $emails = "";
+    $emails = array();
     foreach ($node->field_responsible_mda['und'] as $contributing_mda) {
-        $emails .= get_emails_for_mda($contributing_mda['target_id']) . ",";
+        $emails[] = get_emails_for_mda($contributing_mda['target_id']);
     }
     return $emails;
 }
@@ -89,10 +90,10 @@ function get_emails_for_mda($nid)
 {
     $query = "select entity_id from field_data_field_mda where bundle='user' and field_mda_target_id=$nid";
     $records = db_query($query);
-    $emails = "";
+    $emails = array();
     foreach ($records as $record) {
         $user = user_load($record->entity_id);
-        $emails .= $user->mail . ",";
+        $emails[] = $user->mail;
     }
     return $emails;
 }
@@ -123,15 +124,4 @@ function fetch_child_recommendation_by_mda($node, $mda)
     $nids = array_keys($rResult['node']);
     return $nids;
 }
-function fetch_pending_notifications()
-{
-    $query = new EntityFieldQuery();
-    $query
-        ->entityCondition('entity_type', 'node')
-        ->entityCondition('bundle', 'notification')
-        ->propertyCondition('status', 1)
-        ->fieldCondition('field_status', 'value', "Pending", '=');
-    $rResult = $query->execute();
-    $nids = array_keys($rResult['node']);
-    return $nids;
-}
+

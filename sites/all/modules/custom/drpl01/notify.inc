@@ -16,83 +16,132 @@ function insert_rid()
     }
 }
 
+function fetch_pending_notifications()
+{
+    $query = new EntityFieldQuery();
+    $query
+        ->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'notification')
+        ->propertyCondition('status', 1)
+        ->fieldCondition('field_status', 'value', "Pending", '=');
+    $rResult = $query->execute();
+    $nids = array_keys($rResult['node']);
+    return $nids;
+}
 # send emails to each pending notification
 function send_notifications()
 {
     global $base_url;
-    #insert_rid();
+    #insert recommendation ids
+    insert_rid();
+    #fetch pending notifications
     $pending = fetch_pending_notifications();
     foreach ($pending as $nid) {
         $node = node_load($nid);
+        if($node->field_event_type['und'][0]['value']!='Add'){
+            continue;
+        }
         $url = $base_url . "/" . "node/" . $node->field_rid['und'][0]['target_id'] . "";
         $rmda = node_load($node->field_rmda['und'][0]['target_id'])->title;
         $author = node_load($node->field_rid['und'][0]['target_id'])->uid;
-        $email = get_emails_for_mda($node->field_rmda['und'][0]['target_id']);
-        $cmdas = array();
         $params = array();
         $params['author'] = user_load($author)->name;
         $params['rmda'] = $rmda;
         $params['url'] = $url;
+        print "$nid<br>";
         # process emails for admin role
-        $rid=5;
-        $admins=usersOfRole($rid);
-        foreach($admins as $admin){
-            $email=getUserEmail($admin);
+        $rid = 5;
+        $admins = usersOfRole($rid);
+        foreach ($admins as $admin) {
+            $email = getUserEmail($admin);
             $email = 'genesint@gmail.com';
-            $sent = drupal_mail('drpl01', 'admin', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            $sent = drupal_mail('drpl01', 'admin-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $admin<br>";
             }
         }
 
         # process email for responsible MDA
-        $email=get_emails_for_mda($nid);
-        $email = 'genesint@gmail.com';
-        $sent = drupal_mail('drpl01', 'rmda', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
-        if ($sent) {
-            print "Successful $nid<br>";
+        $emails = get_emails_for_mda($nid);
+        foreach ($emails as $email) {
+            $email = 'genesint@gmail.com';
+            $sent = drupal_mail('drpl01', 'rmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            if ($sent) {
+                print "Successful $nid<br>";
+            }
         }
 
         # process emails for contributing MDA
         foreach ($node->field_cmda['und'] as $cmda) {
-            $email = get_emails_for_mda($cmda['target_id'])[0];
-            $email = 'genesint@gmail.com';
-            $params['cmda'] = $cmda;
-            $sent = drupal_mail('drpl01', 'cmda', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
-            if ($sent) {
-                print "Successful {$cmda['target_id']}<br>";
+            $emails = get_emails_for_mda($cmda['target_id']);
+            foreach ($emails as $email) {
+                print $email."<br>";
+                $email = 'genesint@gmail.com';
+                $params['cmda'] = $cmda;
+                $sent = drupal_mail('drpl01', 'cmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+                if ($sent) {
+                    print "Successful {$cmda['target_id']}<br>";
+                }
             }
         }
+        #update notification status
+        $node->field_status['und'][0]['value']='Sent';
+        node_save($node);
+    }
+    foreach ($pending as $nid) {
+        $node = node_load($nid);
+        if($node->field_event_type['und'][0]['value']!='Update'){
+            continue;
+        }
+        $url = $base_url . "/" . "node/" . $node->field_rid['und'][0]['target_id'] . "";
+        $rmda = node_load($node->field_rmda['und'][0]['target_id'])->title;
+        $author = node_load($node->field_rid['und'][0]['target_id'])->uid;
+        $params = array();
+        $params['author'] = user_load($author)->name;
+        $params['rmda'] = $rmda;
+        $params['url'] = $url;
+        print "$nid<br>";
+        # process emails for admin role
+        $rid = 5;
+        $admins = usersOfRole($rid);
+        foreach ($admins as $admin) {
+            $email = getUserEmail($admin);
+            $email = 'genesint@gmail.com';
+            $sent = drupal_mail('drpl01', 'admin-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            if ($sent) {
+                print "Successful $admin<br>";
+            }
+        }
+
+        # process email for responsible MDA
+        $emails = get_emails_for_mda($nid);
+        foreach ($emails as $email) {
+            $email = 'genesint@gmail.com';
+            $sent = drupal_mail('drpl01', 'rmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            if ($sent) {
+                print "Successful $nid<br>";
+            }
+        }
+
+        # process emails for contributing MDA
+        foreach ($node->field_cmda['und'] as $cmda) {
+            $emails = get_emails_for_mda($cmda['target_id']);
+            foreach ($emails as $email) {
+                print $email."<br>";
+                $email = 'genesint@gmail.com';
+                $params['cmda'] = $cmda;
+                $sent = drupal_mail('drpl01', 'cmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+                if ($sent) {
+                    print "Successful {$cmda['target_id']}<br>";
+                }
+            }
+        }
+        #update notification status
+        $node->field_status['und'][0]['value']='Sent';
+        node_save($node);
     }
 
-}
 
-
-function testing()
-{
-    $query = new EntityFieldQuery();
-    $query
-        ->entityCondition('entity_type', 'node')
-        ->entityCondition('bundle', 'mda')
-        ->propertyCondition('status', 1);
-    $rResult = $query->execute();
-    $nids = array_keys($rResult['node']);
-    foreach ($nids as $nid) {
-        print "UG$nid : " . node_load($nid)->title . "<br>";
-        $new_user = array(
-            'name' => "UG$nid",
-            'pass' => 'uhrc', // note: do not md5 the password
-            'mail' => "UG$nid@example.com",
-            'status' => 1,
-            'init' => "UG$nid@example.com",
-            'field_mda' => array(LANGUAGE_NONE => array(array('target_id' => "$nid"))),
-            'roles' => array(
-                DRUPAL_AUTHENTICATED_RID => 'authenticated user',
-                4 => 'mda',
-            ),
-        );
-        #user_save(NULL, $new_user);
-    }
 }
 
 function usersOfRole($role)
@@ -105,6 +154,8 @@ function usersOfRole($role)
     }
     return $users;
 }
-function getUserEmail($uid){
-    return user_load($uid)->email;
+
+function getUserEmail($uid)
+{
+    return user_load($uid)->mail;
 }

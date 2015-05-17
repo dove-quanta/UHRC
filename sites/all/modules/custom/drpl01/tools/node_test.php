@@ -31,3 +31,30 @@ function get_emails_for_mda($nid){
     }
     return $emails;
 }
+
+function testing()
+{
+    $query = new EntityFieldQuery();
+    $query
+        ->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'mda')
+        ->propertyCondition('status', 1);
+    $rResult = $query->execute();
+    $nids = array_keys($rResult['node']);
+    foreach ($nids as $nid) {
+        print "UG$nid : " . node_load($nid)->title . "<br>";
+        $new_user = array(
+            'name' => "UG$nid",
+            'pass' => 'uhrc', // note: do not md5 the password
+            'mail' => "UG$nid@example.com",
+            'status' => 1,
+            'init' => "UG$nid@example.com",
+            'field_mda' => array(LANGUAGE_NONE => array(array('target_id' => "$nid"))),
+            'roles' => array(
+                DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+                4 => 'mda',
+            ),
+        );
+        #user_save(NULL, $new_user);
+    }
+}
