@@ -269,6 +269,24 @@ function drpl01_mail($key,&$message,$params){
             $langcode = $message['language']->language;
             $body=node_load(1962)->body['und'][0]['value'];
             $body=str_replace('[node-urls]',$params['url'],$body);
+            $body=str_replace('[author]',$params['author'],$body);
+            $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
+            $message['body'][] = t($body, $variables, array('langcode' => $langcode));
+            break;
+        case 'rmda':
+            $langcode = $message['language']->language;
+            $body=node_load(1963)->body['und'][0]['value'];
+            $body=str_replace('[node-urls]',$params['url'],$body);
+            $body=str_replace('[author]',$params['author'],$body);
+            $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
+            $message['body'][] = t($body, $variables, array('langcode' => $langcode));
+            break;
+        case 'cmda':
+            $langcode = $message['language']->language;
+            $body=node_load(1964)->body['und'][0]['value'];
+            $body=str_replace('[node-urls]',$params['url'],$body);
+            $body=str_replace('[author]',$params['author'],$body);
+            $body=str_replace('[cmda]',$params['cmda'],$body);
             $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
