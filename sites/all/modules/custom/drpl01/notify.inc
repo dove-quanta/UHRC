@@ -17,17 +17,21 @@ function insert_rid()
 }
 # send emails to each pending notification
 function send_notifications(){
+    global $base_url;
     #insert_rid();
     $pending = fetch_pending_notifications();
     foreach ($pending as $nid) {
         $node = node_load($nid);
-        $url="node/".$node->field_rid['und'][0]['target_id']."";
-        $title=node_load($node->field_rmda['und'][0]['target_id'])->title;
+        $url=$base_url."/"."node/".$node->field_rid['und'][0]['target_id']."";
+        $rmda=node_load($node->field_rmda['und'][0]['target_id'])->title;
         $author=node_load($node->field_rid['und'][0]['target_id'])->uid;
         $email=get_emails_for_mda($node->field_rmda['und'][0]['target_id']);
         $email='genesint@gmail.com';
         $cmdas=array();
         $params=array();
+        $params['author']=user_load($author)->name;
+        $params['rmda']=$rmda;
+        $params['url']=$url;
         # template for admin role
         $admin_template=node_load(1962)->body['und'][0]['value'];
         # template for responsible mda

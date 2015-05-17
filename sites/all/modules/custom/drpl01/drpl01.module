@@ -268,7 +268,8 @@ function drpl01_mail($key,&$message,$params){
         case 'admin':
             $langcode = $message['language']->language;
             $body=node_load(1962)->body['und'][0]['value'];
-            $message['subject'] = t('Notification from !site', $variables, array('langcode' => $langcode));
+            $body=str_replace('[node-urls]',$params['url'],$body);
+            $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
     }
