@@ -1,20 +1,5 @@
 <?php
 module_load_include('inc', 'drpl01', 'reaction.func');
-function insert_rid()
-{
-    $pending = fetch_pending_notifications();
-    foreach ($pending as $nid) {
-        $node = node_load($nid);
-        if (!empty($node->field_notification_parent)) {
-            $parent_notification = node_load($node->field_notification_parent['und'][0]['target_id']);
-            $parent_recommendation = node_load($parent_notification->field_rid['und'][0]['target_id']);
-            $mda = $node->field_rmda['und'][0]['target_id'];
-            $cid = fetch_child_recommendation_by_mda($parent_recommendation, $mda);
-            $node->field_rid['und'][0]['target_id'] = $cid[0];
-            node_save($node);
-        }
-    }
-}
 
 function fetch_pending_notifications()
 {
@@ -65,10 +50,10 @@ function send_notifications()
         $emails = get_emails_for_mda($nid);
         foreach ($emails as $email) {
             $email = 'jkyeyune@hostalite.com';
-            $sent = drupal_mail('drpl01', 'rmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            /*$sent = drupal_mail('drpl01', 'rmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $nid<br>";
-            }
+            }*/
         }
 
         # process emails for contributing MDA
@@ -78,15 +63,15 @@ function send_notifications()
                 print $email."<br>";
                 $email = 'jkyeyune@hostalite.com';
                 $params['cmda'] = $cmda;
-                $sent = drupal_mail('drpl01', 'cmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+                /*$sent = drupal_mail('drpl01', 'cmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
                 if ($sent) {
                     print "Successful {$cmda['target_id']}<br>";
-                }
+                }*/
             }
         }
         #update notification status
         $node->field_status['und'][0]['value']='Sent';
-        node_save($node);
+        #node_save($node);
     }
     foreach ($pending as $nid) {
         $node = node_load($nid);
@@ -107,20 +92,20 @@ function send_notifications()
         foreach ($admins as $admin) {
             $email = getUserEmail($admin);
             $email = 'jkyeyune@hostalite.com';
-            $sent = drupal_mail('drpl01', 'admin-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+           /* $sent = drupal_mail('drpl01', 'admin-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $admin<br>";
-            }
+            }*/
         }
 
         # process email for responsible MDA
         $emails = get_emails_for_mda($nid);
         foreach ($emails as $email) {
             $email = 'jkyeyune@hostalite.com';
-            $sent = drupal_mail('drpl01', 'rmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+            /*$sent = drupal_mail('drpl01', 'rmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $nid<br>";
-            }
+            }*/
         }
 
         # process emails for contributing MDA
@@ -130,15 +115,15 @@ function send_notifications()
                 print $email."<br>";
                 $email = 'jkyeyune@hostalite.com';
                 $params['cmda'] = $cmda;
-                $sent = drupal_mail('drpl01', 'cmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
+                /*$sent = drupal_mail('drpl01', 'cmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
                 if ($sent) {
                     print "Successful {$cmda['target_id']}<br>";
-                }
+                }*/
             }
         }
         #update notification status
         $node->field_status['und'][0]['value']='Sent';
-        node_save($node);
+        #node_save($node);
     }
 
 

@@ -9,7 +9,21 @@ function update_notification($notification, $node, $type)
     $notification->field_event_type['und'][0]['value'] = $type;
     node_save($notification);
 }
-
+function insert_rid()
+{
+    $pending = fetch_pending_notifications();
+    foreach ($pending as $nid) {
+        $node = node_load($nid);
+        if (!empty($node->field_notification_parent)) {
+            $parent_notification = node_load($node->field_notification_parent['und'][0]['target_id']);
+            $parent_recommendation = node_load($parent_notification->field_rid['und'][0]['target_id']);
+            $mda = $node->field_rmda['und'][0]['target_id'];
+            $cid = fetch_child_recommendation_by_mda($parent_recommendation, $mda);
+            $node->field_rid['und'][0]['target_id'] = $cid[0];
+            node_save($node);
+        }
+    }
+}
 function create_child_notifications($notification, $node)
 {
 
