@@ -26,3 +26,5 @@ Add-recommendation-comment||||add_recommendation_comment||||grids/grids.inc||||M
 Related Recommendation Table||||get_related_recommendation_table||||grids/grids.inc||||MENU_NORMAL_ITEM|related-recommendation-table
 Related Recommendation Grid Data||||get_related_recommendation_data||||grids/data/related-recommendation-data.inc||||MENU_NORMAL_ITEM|related-recommendation-data
 Send Notifications||||send_notifications||||notify.inc||||MENU_NORMAL_ITEM|send-notifications
+My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|responsible-notifications
+My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|contributing-notifications

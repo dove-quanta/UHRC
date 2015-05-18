@@ -26,6 +26,9 @@
 
                     </ul>
                 </li>
+                <li class="divider"></li>
+                <li ><a href="##" title="Notifications"
+                                      onclick="load_url('responsible-notifications?MDA={$MID}');">Notifications</a></li>
                 <!--        <li class="dropdown">
                           <a href="#" data-toggle="dropdown" title="">Users<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">

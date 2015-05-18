@@ -54,7 +54,7 @@ function send_notifications()
         $admins = usersOfRole($rid);
         foreach ($admins as $admin) {
             $email = getUserEmail($admin);
-            $email = 'genesint@gmail.com';
+            $email = 'jkyeyune@hostalite.com';
             $sent = drupal_mail('drpl01', 'admin-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $admin<br>";
@@ -64,7 +64,7 @@ function send_notifications()
         # process email for responsible MDA
         $emails = get_emails_for_mda($nid);
         foreach ($emails as $email) {
-            $email = 'genesint@gmail.com';
+            $email = 'jkyeyune@hostalite.com';
             $sent = drupal_mail('drpl01', 'rmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $nid<br>";
@@ -76,7 +76,7 @@ function send_notifications()
             $emails = get_emails_for_mda($cmda['target_id']);
             foreach ($emails as $email) {
                 print $email."<br>";
-                $email = 'genesint@gmail.com';
+                $email = 'jkyeyune@hostalite.com';
                 $params['cmda'] = $cmda;
                 $sent = drupal_mail('drpl01', 'cmda-add', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
                 if ($sent) {
@@ -106,7 +106,7 @@ function send_notifications()
         $admins = usersOfRole($rid);
         foreach ($admins as $admin) {
             $email = getUserEmail($admin);
-            $email = 'genesint@gmail.com';
+            $email = 'jkyeyune@hostalite.com';
             $sent = drupal_mail('drpl01', 'admin-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $admin<br>";
@@ -116,7 +116,7 @@ function send_notifications()
         # process email for responsible MDA
         $emails = get_emails_for_mda($nid);
         foreach ($emails as $email) {
-            $email = 'genesint@gmail.com';
+            $email = 'jkyeyune@hostalite.com';
             $sent = drupal_mail('drpl01', 'rmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
             if ($sent) {
                 print "Successful $nid<br>";
@@ -128,7 +128,7 @@ function send_notifications()
             $emails = get_emails_for_mda($cmda['target_id']);
             foreach ($emails as $email) {
                 print $email."<br>";
-                $email = 'genesint@gmail.com';
+                $email = 'jkyeyune@hostalite.com';
                 $params['cmda'] = $cmda;
                 $sent = drupal_mail('drpl01', 'cmda-update', $email, language_default(), $params, 'info@uhrcdatabase.org', TRUE);
                 if ($sent) {

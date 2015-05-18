@@ -21,7 +21,21 @@ function drpl01_menu()
     }
     return $items;
 }
-
+function drpl01_theme()
+{
+    return array(
+        'responsible-notifications' => array(
+            'template' => 'responsible-notifications',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'contributing-notifications' => array(
+            'template' => 'contributing-notifications',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+    );
+}
 function drpl01_page_alter()
 {
     global $user;
@@ -52,6 +66,8 @@ function drpl01_page_alter()
         "admin/people/create",
         "node/add/recommendation-comments",
         "node/add/ohrc-comment",
+        "responsible-notifications",
+        "contributing-notifications",
     );
     $db_pages = array(
         "mechanism",
