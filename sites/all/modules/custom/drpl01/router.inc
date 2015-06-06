@@ -45,6 +45,11 @@ function router()
                 '#markup' => theme('admin-recommendation-table', array()),
             );
             break;
+        case 'recommendation-recommendation-table':
+            $page = array(
+                '#markup' => theme('recommendation-recommendation-table', array()),
+            );
+            break;
         case 'admin-dashboard':
             $page = array(
                 '#markup' => theme('admin-dashboard', array()),

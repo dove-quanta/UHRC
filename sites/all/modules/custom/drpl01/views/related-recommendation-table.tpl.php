@@ -1,3 +1,7 @@
+<?php
+$IFRAME = isset($_GET['IFRAME']) ? $_GET['IFRAME'] : "";
+$SEARCH = isset($_GET['SEARCH']) ? $_GET['SEARCH'] : "";
+?>
 <script>
     function download_file(otype) {
         var ids = parent.jQuery("#iframe-dashboard").contents().find(".ohrc-id");
@@ -15,7 +19,7 @@
                 "sProcessing": '<i class="fa fa-2x fa-spinner fa-spin"></i>'
             },
             "fnServerParams": function (aoData) {
-                aoData.push({"name": "SEARCH", "value": "{$SEARCH}"});
+                aoData.push({"name": "SEARCH", "value": "<?php echo $SEARCH; ?>"});
             },
             "bProcessing": true,
             "bServerSide": true,
