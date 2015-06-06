@@ -21,6 +21,7 @@ function drpl01_menu()
     }
     return $items;
 }
+
 function drpl01_theme()
 {
     return array(
@@ -34,8 +35,49 @@ function drpl01_theme()
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
+        'admin' => array(
+            'template' => 'admin',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'mda' => array(
+            'template' => 'mda',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'front-page' => array(
+            'template' => 'front-page',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'mda-dashboard' => array(
+            'template' => 'mda-dashboard',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'admin-dashboard' => array(
+            'template' => 'admin-dashboard',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'mda-recommendation-table' => array(
+            'template' => 'mda-recommendation-table',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'admin-recommendation-table' => array(
+            'template' => 'admin-recommendation-table',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'uhrcsearch' => array(
+            'template' => 'uhrcsearch',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
     );
 }
+
 function drpl01_page_alter()
 {
     global $user;
@@ -278,56 +320,58 @@ function add_recommendation_comment($subject, $comment_body)
     comment_submit($comment);
     comment_save($comment);
 }
-function drpl01_mail($key,&$message,$params){
-    $variables=array();
-    switch($key) {
+
+function drpl01_mail($key, &$message, $params)
+{
+    $variables = array();
+    switch ($key) {
         case 'admin-add':
             $langcode = $message['language']->language;
-            $body=node_load(1962)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
+            $body = node_load(1962)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
             $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
         case 'rmda-add':
             $langcode = $message['language']->language;
-            $body=node_load(1963)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
+            $body = node_load(1963)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
             $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
         case 'cmda-add':
             $langcode = $message['language']->language;
-            $body=node_load(1964)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
-            $body=str_replace('[cmda]',$params['cmda'],$body);
+            $body = node_load(1964)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
+            $body = str_replace('[cmda]', $params['cmda'], $body);
             $message['subject'] = t("Notification: A Recommendation has been created by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
         case 'admin-update':
             $langcode = $message['language']->language;
-            $body=node_load(1962)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
+            $body = node_load(1962)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
             $message['subject'] = t("Notification: A Recommendation has been updated by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
         case 'rmda-update':
             $langcode = $message['language']->language;
-            $body=node_load(1963)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
+            $body = node_load(1963)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
             $message['subject'] = t("Notification: A Recommendation has been updated by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;
         case 'cmda-update':
             $langcode = $message['language']->language;
-            $body=node_load(1964)->body['und'][0]['value'];
-            $body=str_replace('[node-urls]',$params['url'],$body);
-            $body=str_replace('[author]',$params['author'],$body);
-            $body=str_replace('[cmda]',$params['cmda'],$body);
+            $body = node_load(1964)->body['und'][0]['value'];
+            $body = str_replace('[node-urls]', $params['url'], $body);
+            $body = str_replace('[author]', $params['author'], $body);
+            $body = str_replace('[cmda]', $params['cmda'], $body);
             $message['subject'] = t("Notification: A Recommendation has been updated by {$params['author']} for {$params['rmda']}", $variables, array('langcode' => $langcode));
             $message['body'][] = t($body, $variables, array('langcode' => $langcode));
             break;

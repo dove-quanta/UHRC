@@ -1,5 +1,11 @@
 title|title callback|title arguments|description|page callback|page arguments|access callback|access arguments|file|file path|weight|menu_name|type|url
-Home||||home||||home.inc||||MENU_NORMAL_ITEM|home
+Front page||||router||||router.inc||||MENU_NORMAL_ITEM|front-page
+UHRC Search||||router||||router.inc||||MENU_NORMAL_ITEM|uhrcsearch
+UHRC dashboard||||router||||router.inc||||MENU_NORMAL_ITEM|dashboard
+MDA dashboard||||router||||router.inc||||MENU_NORMAL_ITEM|mda-dashboard
+Admin dashboard||||router||||router.inc||||MENU_NORMAL_ITEM|admin-dashboard
+MDA Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|mda-recommendation-table
+Admin Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|admin-recommendation-table
 Mechanisms||||mechanism||||mechanism.inc||||MENU_NORMAL_ITEM|mechanism
 Thematic Areas||||thematic_area||||thematic_area.inc||||MENU_NORMAL_ITEM|thematic_area
 MDA||||mda||||mda.inc||||MENU_NORMAL_ITEM|mda
@@ -12,11 +18,9 @@ Users||||get_admin_users||||Admin-users.inc||||MENU_NORMAL_ITEM|admin-users
 Reports||||get_admin_reports||||Admin-reports.inc||||MENU_NORMAL_ITEM|admin-reports
 Excel download||||download_excel||||excel.inc||||MENU_NORMAL_ITEM|download-excel
 Word download||||download_word||||word.inc||||MENU_NORMAL_ITEM|download-word
-Admin Recommendation Table||||get_admin_recommendation_table||||grids/grids.inc||||MENU_NORMAL_ITEM|admin-recommendation-table
 Admin Recommendation Grid Data||||get_admin_recommendation_data||||grids/data/admin-recommendation-data.inc||||MENU_NORMAL_ITEM|admin-recommendation-data
 Comments Grid||||get_comments||||grids/grids.inc||||MENU_NORMAL_ITEM|comment-grid
 Comments Grid Data||||get_comments_data||||grids/data/comment-data.inc||||MENU_NORMAL_ITEM|comment-data
-MDA Recommendation Table||||get_mda_recommendation_table||||grids/grids.inc||||MENU_NORMAL_ITEM|mda-recommendation-table
 MDA Recommendation Grid Data||||get_mda_recommendation_data||||grids/data/mda-recommendation-data.inc||||MENU_NORMAL_ITEM|mda-recommendation-data
 View-comments||||get_view_comments||||grids/grids.inc||||MENU_NORMAL_ITEM|view-comments
 View-comments-data||||get_view_comments_data||||grids/data/view-comments-data.inc||||MENU_NORMAL_ITEM|view-comments-data

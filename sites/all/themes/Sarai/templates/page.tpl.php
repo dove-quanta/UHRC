@@ -139,7 +139,7 @@
                 </nav>
                 <form class="navbar-form navbar-left" role="search" id='ohrc-header-search-form'
                             action="<?php global $base_url;
-                            echo $base_url . "/database_search" ?>">
+                            echo $base_url . "/uhrcsearch" ?>">
                     <!--          <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Search" name="mSearch" size='50'>
                               </div>
