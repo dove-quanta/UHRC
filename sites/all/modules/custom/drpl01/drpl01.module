@@ -185,7 +185,7 @@ function drpl01_page_alter()
             drupal_add_css('sites/all/themes/Sarai/css/iframe.css');
         }
     }
-    if ($path == "database_search") {
+    if ($path == "uhrcsearch") {
         drupal_add_js('sites/all/modules/custom/drpl01/js/trigger.js');
     }
 
@@ -290,9 +290,11 @@ function recommendation_validate_handler(&$form, &$form_state)
 function recommendation_submit_handler(&$form, &$form_state)
 {
     global $user;
-    if ($user->name == 'admin') {
+    $roles = $user->roles;
+    if (in_array('admin', $roles)) {
         $form_state['redirect'] = 'admin-recommendation-table';
-    } else {
+    }
+    if (in_array('mda', $roles)) {
         $form_state['redirect'] = 'mda-recommendation-table';
     }
 }

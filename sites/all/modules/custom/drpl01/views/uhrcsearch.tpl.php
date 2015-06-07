@@ -68,7 +68,7 @@ print get_criteria();
   </div>
   <div class='col-md-9' style='width:80%;'>
     <iframe scrolling="no" id='iframe-recommendation-grid' class='ohrc-search'
-            src='recommendation-table?" . $query . "'
+            src='recommendation-table?<?php print $query; ?>'
             onmouseover='changeHeight("iframe-recommendation-grid");'>
     </iframe>
   </div>
