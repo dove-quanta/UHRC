@@ -35,6 +35,11 @@ function router()
             '#markup' => theme('mda-dashboard', array()),
         );
         break;
+        case 'recommendation-table':
+            $page = array(
+                '#markup' => theme('recommendation-table', array()),
+            );
+            break;
         case 'mda-recommendation-table':
             $page = array(
                 '#markup' => theme('mda-recommendation-table', array()),
@@ -45,14 +50,29 @@ function router()
                 '#markup' => theme('admin-recommendation-table', array()),
             );
             break;
-        case 'recommendation-recommendation-table':
+        case 'related-recommendation-table':
             $page = array(
-                '#markup' => theme('recommendation-recommendation-table', array()),
+                '#markup' => theme('related-recommendation-table', array()),
             );
             break;
         case 'admin-dashboard':
             $page = array(
                 '#markup' => theme('admin-dashboard', array()),
+            );
+            break;
+        case 'comment-grid':
+            $page = array(
+                '#markup' => theme('comment-grid', array()),
+            );
+            break;
+        case 'view-comments':
+            $page = array(
+                '#markup' => theme('view-comments', array()),
+            );
+            break;
+        case 'view-replies':
+            $page = array(
+                '#markup' => theme('view-replies', array()),
             );
             break;
         case 'dashboard':

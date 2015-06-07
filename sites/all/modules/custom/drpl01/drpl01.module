@@ -45,6 +45,21 @@ function drpl01_theme()
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
+        'comment-grid' => array(
+            'template' => 'comment-grid',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'view-comments' => array(
+            'template' => 'view-comments',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'view-replies' => array(
+            'template' => 'view-replies',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
         'front-page' => array(
             'template' => 'front-page',
             'path' => 'sites/all/modules/custom/drpl01/views',
@@ -70,8 +85,13 @@ function drpl01_theme()
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
-        'recommendation-recommendation-table' => array(
-            'template' => 'recommendation-recommendation-table',
+        'related-recommendation-table' => array(
+            'template' => 'related-recommendation-table',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
+        'recommendation-table' => array(
+            'template' => 'recommendation-table',
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
@@ -102,7 +122,7 @@ function drpl01_page_alter()
         "year-received",
         "mda",
         "view-comments",
-        "recommendation-grid",
+        "recommendation-table",
         "admin-recommendation-table",
         "related-recommendation-table",
         "mda-recommendation-table",

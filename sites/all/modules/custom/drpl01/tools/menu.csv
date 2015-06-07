@@ -7,7 +7,7 @@ Admin dashboard||||router||||router.inc||||MENU_NORMAL_ITEM|admin-dashboard
 MDA Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|mda-recommendation-table
 Admin Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|admin-recommendation-table
 Related Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|related-recommendation-table
-Recommendation Grid||||router||||router.inc||||MENU_NORMAL_ITEM|recommendation-grid
+Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|recommendation-table
 Comments Grid||||router||||router.inc||||MENU_NORMAL_ITEM|comment-grid
 View-comments||||router||||router.inc||||MENU_NORMAL_ITEM|view-comments
 View-replies||||router||||router.inc||||MENU_NORMAL_ITEM|view-replies
@@ -21,7 +21,6 @@ Related Recommendation Grid Data||||get_related_recommendation_data||||grids/dat
 Send Notifications||||send_notifications||||notify.inc||||MENU_NORMAL_ITEM|send-notifications
 My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|responsible-notifications
 My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|contributing-notifications
-
 Mechanisms||||mechanism||||mechanism.inc||||MENU_NORMAL_ITEM|mechanism
 Thematic Areas||||thematic_area||||thematic_area.inc||||MENU_NORMAL_ITEM|thematic_area
 MDA||||mda||||mda.inc||||MENU_NORMAL_ITEM|mda

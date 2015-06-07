@@ -1,3 +1,16 @@
+<?php
+$IFRAME = isset($_GET['IFRAME']) ? $_GET['IFRAME'] : "";
+$SEARCH = isset($_GET['SEARCH']) ? $_GET['SEARCH'] : "";
+$mSearch = isset($_GET['mSearch']) ? $_GET['mSearch'] : "";
+$mechanism = isset($_GET['mechanism']) ? $_GET['mechanism'] : "";
+$mda = isset($_GET['mda']) ? $_GET['mda'] : "";
+$theme = isset($_GET['theme']) ? $_GET['theme'] : "";
+$year = isset($_GET['year']) ? $_GET['year'] : "";
+$mechanism = str_replace("Mechanism", "", $mechanism);
+$mda = str_replace("MDA", "", $mda);
+$theme = str_replace("Theme", "", $theme);
+$year = str_replace("Year", "", $year);
+?>
 <script>
     function download_file(otype) {
         var ids = parent.jQuery("#iframe-recommendation-grid").contents().find(".ohrc-id");
@@ -16,12 +29,12 @@
             },
             "lengthMenu": [[10, 25, 50,100,500,1000], [10, 25, 50,100,500,1000]],
             "fnServerParams": function (aoData) {
-                aoData.push({"name": "SEARCH", "value": "{$SEARCH}"});
-                aoData.push({"name": "mSearch", "value": "{$mSearch}"});
-                aoData.push({"name": "mechanism", "value": "{$mechanism}"});
-                aoData.push({"name": "mda", "value": "{$mda}"});
-                aoData.push({"name": "theme", "value": "{$theme}"});
-                aoData.push({"name": "year", "value": "{$year}"});
+                aoData.push({"name": "SEARCH", "value": "<?php echo $SEARCH; ?>"});
+                aoData.push({"name": "mSearch", "value": "<?php echo $mSearch; ?>"});
+                aoData.push({"name": "mechanism", "value": "<?php echo $mechanism ; ?>"});
+                aoData.push({"name": "mda", "value": "<?php echo $mda; ?>"});
+                aoData.push({"name": "theme", "value": "<?php echo $theme ; ?>"});
+                aoData.push({"name": "year", "value": "<?php echo $year ; ?>"});
             },
             "processing": true,
             "serverSide": true,
