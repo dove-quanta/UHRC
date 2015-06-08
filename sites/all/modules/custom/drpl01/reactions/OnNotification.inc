@@ -10,9 +10,10 @@ function update_notification($notification, $node, $type)
     $notification->field_recepient['und'][0]['target_id'] = $node->field_responsible_mda['und'][0]['target_id'];
     node_save($notification);
 }
+
 function create_child_notifications($node)
 {
-
+    if (empty($node->field_cmda)) return;
     for ($i = 0; $i < count($node->field_cmda['und']); $i++) {
         create_child_notification($node, $i);
     }
@@ -35,10 +36,11 @@ function create_child_notification($node, $mda)
         $child->field_cmda['und'][$i]['target_id'] = $node->field_cmda['und'][$i]['target_id'];
     }
     $child->field_notification_parent['und'][0]['target_id'] = $node->nid;
-    $child->field_recepient['und'][0]['target_id']=$node->field_cmda['und'][$mda]['target_id'];
+    $child->field_recepient['und'][0]['target_id'] = $node->field_cmda['und'][$mda]['target_id'];
     $child->field_rid['und'][0]['target_id'] = $node->field_rid['und'][0]['target_id'];
     $child = node_submit($child); // Prepare node for saving
     node_save($child);
 
 }
+
 ?>
