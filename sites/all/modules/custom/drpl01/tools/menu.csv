@@ -11,6 +11,7 @@ Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|recommendation-
 Comments Grid||||router||||router.inc||||MENU_NORMAL_ITEM|comment-grid
 View-comments||||router||||router.inc||||MENU_NORMAL_ITEM|view-comments
 View-replies||||router||||router.inc||||MENU_NORMAL_ITEM|view-replies
+rnode||||router||||router.inc||||MENU_NORMAL_ITEM|rnode
 Recommendation Grid Data||||get_recommendation_data||||grids/data/recommendation-data.inc||||MENU_NORMAL_ITEM|recommendation-data
 Admin Recommendation Grid Data||||get_admin_recommendation_data||||grids/data/admin-recommendation-data.inc||||MENU_NORMAL_ITEM|admin-recommendation-data
 MDA Recommendation Grid Data||||get_mda_recommendation_data||||grids/data/mda-recommendation-data.inc||||MENU_NORMAL_ITEM|mda-recommendation-data

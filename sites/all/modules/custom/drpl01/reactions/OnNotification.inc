@@ -35,7 +35,8 @@ function create_child_notification($node, $mda)
         $child->field_cmda['und'][$i]['target_id'] = $node->field_cmda['und'][$i]['target_id'];
     }
     $child->field_notification_parent['und'][0]['target_id'] = $node->nid;
-    $node->field_recepient['und'][0]['target_id']=$node->field_cmda['und'][$mda]['target_id'];
+    $child->field_recepient['und'][0]['target_id']=$node->field_cmda['und'][$mda]['target_id'];
+    $child->field_rid['und'][0]['target_id'] = $node->field_rid['und'][0]['target_id'];
     $child = node_submit($child); // Prepare node for saving
     node_save($child);
 

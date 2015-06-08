@@ -100,6 +100,11 @@ function drpl01_theme()
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
+        'rnode' => array(
+            'template' => 'rnode',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
     );
 }
 
@@ -129,6 +134,7 @@ function drpl01_page_alter()
         "node/add/recommendation",
         "admin-dashboard",
         "mda-dashboard",
+        "rnode",
         "admin/people",
         "admin/people/create",
         "node/add/recommendation-comments",

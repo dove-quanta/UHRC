@@ -75,6 +75,11 @@ function router()
                 '#markup' => theme('view-replies', array()),
             );
             break;
+        case 'rnode':
+            $page = array(
+                '#markup' => theme('rnode', array()),
+            );
+            break;
         case 'dashboard':
            // if (!user_is_logged_in()) {}
             $roles = $user->roles;

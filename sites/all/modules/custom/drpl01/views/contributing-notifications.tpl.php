@@ -1,6 +1,7 @@
 <h4>Notifications</h4>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
         <?php
         $mda = empty($_GET['MDA']) ? "" : $_GET['MDA'];
         $filter = array();
@@ -16,4 +17,5 @@
         print $view->preview();
         ?>
     </div>
+    <div class="col-md-1"></div>
 </div>
