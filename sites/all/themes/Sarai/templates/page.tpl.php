@@ -73,6 +73,10 @@
  * @ingroup themeable
  */
 ?>
+<?php
+$iframe=empty($_GET['iframe'])?"0":$_GET['iframe'];
+?>
+<?php if($iframe=="0"){?>
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
     <div class="container" id="ohrc-custom-header">
         <div class="row">
@@ -154,6 +158,7 @@
         <?php endif; ?>
     </div>
 </header>
+<?php } ?>
 
 <div class="main-container container">
 
@@ -206,6 +211,9 @@
 
     </div>
 </div>
+
+<?php if($iframe=="0"):?>
 <footer class="footer container">
     <?php print render($page['footer']); ?>
 </footer>
+<?php endif; ?>

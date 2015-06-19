@@ -18,7 +18,7 @@ function create_child_recommendation($node, $mda)
     $child->uid = $user->uid;
     $child->status = 1; //(1 or 0): published or not
     $child->promote = 0; //(1 or 0): promoted to front page
-    $child->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write
+    $child->comment = 2; // 0 = comments disabled, 1 = read only, 2 = read/write
     $child->field_recommendation['und'][0]['value'] = $node->field_recommendation['und'][0]['value'];
     $child->field_year['und'][0]['value'] = $node->field_year['und'][0]['value'];
     $child->field_next_state_deadline['und'][0]['value'] = $node->field_next_state_deadline['und'][0]['value'];

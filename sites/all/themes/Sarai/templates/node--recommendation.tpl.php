@@ -1,15 +1,16 @@
 
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-10">
         <?php
         $view=field_view_field("node",$node,"field_recommendation");
         print drupal_render($view);
         ?>
     </div>
+    <div class="col-md-1"></div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-2">
         <?php
         $view=field_view_field("node",$node,"field_year");
@@ -41,10 +42,10 @@
         print drupal_render($view);
         ?>
     </div>
-
+    <div class="col-md-1"></div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-4">
         <?php
         $view=field_view_field("node",$node,"field_responsible_mda");
@@ -58,7 +59,7 @@
         ?>
     </div>
     <div class="col-md-2">
-        <ul>
+        <ul style="list-style:none;">
             <li>
                 <?php
                 $view=field_view_field("node",$node,"field_means_of_verification");
@@ -79,9 +80,10 @@
             </li>
         </ul>
     </div>
+    <div class="col-md-1"></div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-2">
         <?php
         $view=field_view_field("node",$node,"field_indicators");
@@ -103,9 +105,10 @@
         ?>
 
     </div>
+    <div class="col-md-1"></div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-10">
         <?php
         $view=field_view_field("node",$node,"field_status_of_implementation");
@@ -114,9 +117,23 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <?php print render($content['links']); ?>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
         <?php print render($content['comments']); ?>
     </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-1"></div>
 </div>
+<!--
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <?php print render($content['links']); ?>
+    </div>
+</div>
+-->
+<style type="text/css">
+    #edit-comment-body-und-0-format{
+        display:none;
+    }
+</style>
