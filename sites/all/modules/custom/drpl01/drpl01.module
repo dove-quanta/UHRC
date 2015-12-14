@@ -267,10 +267,10 @@ function comment_submit_handler(&$form, &$form_state)
 
 function recommendation_validate_handler(&$form, &$form_state)
 {
-	$title_size=strlen($form_state['values']['field_recommendation']['und'][0]['value']);
-    	if($title_size>256){
-       		form_set_error('field_recommendation', 'Recommendation title must have less than 256 characters');
-	    }
+    $title_size=strlen($form_state['values']['field_recommendation']['und'][0]['value']);
+    if($title_size>256){
+       form_set_error('field_recommendation', 'Recommendation title must have less than 256 characters');
+    }
     if (form_get_errors())
         return;
     $title = '';
