@@ -51,7 +51,7 @@ function drpl01_theme()
             'variables' => array('title' => '', 'contents' => array())
         ),
         'view-comments' => array(
-            'template' => 'view-comments',
+            'template' => 'view-comments-grid',
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
