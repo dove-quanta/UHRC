@@ -7,7 +7,7 @@ function get_view_comments_data() {
   $skey = isset($_GET['sSearch']) ? $_GET['sSearch'] : "";
   $NID = isset($_GET['NID']) ? $_GET['NID'] : "";
 
-  $results = db_query('select a.nid, a.cid from comment a where a.nid = :nid order by a.cid desc', array(':nid' => $NID));
+  $results = db_query('select  a.cid from comment a where a.nid = :nid order by a.cid desc', array(':nid' => $NID));
   $iTotal = $results->rowCount();
   $iFilteredTotal = $results->rowCount();
   $output = array(

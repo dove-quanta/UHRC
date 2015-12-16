@@ -15,9 +15,7 @@ function get_linked_recommendation_data()
     if ($parent != "") {
         # Node has a parent. We are going to retrieve its siblings
         $choicep[] = $parent;
-    }
-    else
-    {
+    } else {
         # Node does not have a parent. We are going to retrieve its children.
         $choicep[] = $NID;
     }
@@ -29,8 +27,10 @@ function get_linked_recommendation_data()
     $nodes = array_keys($result['node']);
     if ($parent != "") {
         # if node has a parent, then its parent is a linked node
-        $nodes[]=$parent;
+        $nodes[] = $parent;
     }
+    asort($nodes);
+    $page = array_slice($nodes, $start, $length);
     $iTotal = count($nodes);
     $iFilteredTotal = count($nodes);
 
@@ -44,7 +44,7 @@ function get_linked_recommendation_data()
         "aaData" => array()
     );
 
-    foreach ($nodes as $nid) {
+    foreach ($page as $nid) {
         $node = node_load($nid);
         $row = array();
         $row[] = $node->nid;
