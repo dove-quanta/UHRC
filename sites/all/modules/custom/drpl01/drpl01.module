@@ -105,6 +105,11 @@ function drpl01_theme()
             'path' => 'sites/all/modules/custom/drpl01/views',
             'variables' => array('title' => '', 'contents' => array())
         ),
+        'linked-recommendation-table' => array(
+            'template' => 'linked-recommendation-table',
+            'path' => 'sites/all/modules/custom/drpl01/views',
+            'variables' => array('title' => '', 'contents' => array())
+        ),
     );
 }
 
@@ -130,6 +135,7 @@ function drpl01_page_alter()
         "recommendation-table",
         "admin-recommendation-table",
         "related-recommendation-table",
+        "linked-recommendation-table",
         "mda-recommendation-table",
         "node/add/recommendation",
         "admin-dashboard",

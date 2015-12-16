@@ -7,6 +7,7 @@ Admin dashboard||||router||||router.inc||||MENU_NORMAL_ITEM|admin-dashboard
 MDA Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|mda-recommendation-table
 Admin Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|admin-recommendation-table
 Related Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|related-recommendation-table
+Linked Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|linked-recommendation-table
 Recommendation Table||||router||||router.inc||||MENU_NORMAL_ITEM|recommendation-table
 Comments Grid||||router||||router.inc||||MENU_NORMAL_ITEM|comment-grid
 View-comments||||router||||router.inc||||MENU_NORMAL_ITEM|view-comments
@@ -19,6 +20,7 @@ Comments Grid Data||||get_comments_data||||grids/data/comment-data.inc||||MENU_N
 View-comments-data||||get_view_comments_data||||grids/data/view-comments-data.inc||||MENU_NORMAL_ITEM|view-comments-data
 View-replies-data||||get_view_replies_data||||grids/data/view-replies-data||||MENU_NORMAL_ITEM|view-replies-data
 Related Recommendation Grid Data||||get_related_recommendation_data||||grids/data/related-recommendation-data.inc||||MENU_NORMAL_ITEM|related-recommendation-data
+Linked Recommendation Grid Data||||get_linked_recommendation_data||||grids/data/linked-recommendation-data.inc||||MENU_NORMAL_ITEM|linked-recommendation-data
 Send Notifications||||send_notifications||||notify.inc||||MENU_NORMAL_ITEM|send-notifications
 My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|responsible-notifications
 My Notifications||||router||||router.inc||||MENU_NORMAL_ITEM|contributing-notifications
@@ -33,4 +35,3 @@ Reports||||get_admin_reports||||Admin-reports.inc||||MENU_NORMAL_ITEM|admin-repo
 Excel download||||download_excel||||excel.inc||||MENU_NORMAL_ITEM|download-excel
 Word download||||download_word||||word.inc||||MENU_NORMAL_ITEM|download-word
 Add-recommendation-comment||||add_recommendation_comment||||grids/grids.inc||||MENU_NORMAL_ITEM|add-recommendation-comment
-

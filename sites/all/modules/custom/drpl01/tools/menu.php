@@ -11,7 +11,7 @@ function addnode($line)
         'type' => 'menu',
         'language' => 'und',
     );
-
+    print count($data)."\n";
     node_object_prepare($node);
 
     $fields = field_info_instances('node');

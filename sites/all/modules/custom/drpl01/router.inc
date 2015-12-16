@@ -97,6 +97,11 @@ function router()
                 drupal_goto('user');
             }
             break;
+        case 'linked-recommendation-table':
+        $page = array(
+            '#markup' => theme('linked-recommendation-table', array()),
+        );
+        break;
         default:
             $page = array(
                 '#markup' => "<div>Hello, world</div>",
