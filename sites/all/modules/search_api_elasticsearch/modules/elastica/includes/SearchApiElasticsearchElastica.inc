@@ -275,6 +275,10 @@ class SearchApiElasticsearchElastica extends SearchApiElasticsearchAbstractServi
 
       $documents[] = new Elastica\Document($id, $data);
     }
+
+    // Allow other modules to alter documents.
+    drupal_alter('search_api_elasticsearch_elastica_documents', $documents, $index, $items);
+
     try {
       $elastica_type->addDocuments($documents);
     }
@@ -340,6 +344,66 @@ class SearchApiElasticsearchElastica extends SearchApiElasticsearchAbstractServi
     $this->addSearchFacets($elastica_query, $query);
 
     $response = SearchApiElasticsearchElasticaSearcher::search($elastica_type, $elastica_query, $query_options, $query);
+
+    // Show Elasticsearch query string from Elastica
+    // as json output when views debug output is enabled.
+    if (function_exists('vpr') &&
+        $elastica_param_query = $elastica_query->getParam('query')) {
+      vpr(drupal_json_encode($elastica_param_query));
+    }
+
+    // Parse response.
+    return $this->parseSearchResponse($response, $query);
+  }
+
+  /**
+   * Implements SearchApiMultiServiceInterface::searchMultiple().
+   *
+   * Performs a multi-index search for search_api_multiple.module. Note that
+   * rather than implementing this interface formally, as suggested in the docs
+   * header for that interface the way to do it is just to add this method, so
+   * that the search_api_multiple module is not a dependency of this module.
+   *
+   * @param SearchApiMultiQueryInterface $query
+   *   The search query to execute.
+   *
+   * @throws SearchApiException
+   *   If an error prevented the search from completing.
+   *
+   * @return array
+   *   An associative array containing the search results, as required by
+   *   SearchApiMultiQueryInterface::execute().
+   */
+  public function searchMultiple($query) {
+    $search_result = array('result count' => 0);
+
+    // Set up the Elastica search object.
+    $elastica_search = new Elastica\Search($this->elasticClient);
+
+    // Build the Elastica query and options.
+    $elastica_query = $this->buildSearchQuery($query);
+    $this->addSearchFacets($elastica_query, $query);
+    $elastica_search->setQuery($elastica_query);
+    $query_options = $this->getSearchQueryOptions($query);
+    $elastica_search->setOptions($query_options);
+
+    // Add indexes.
+    foreach ($query->getIndexes() as $index) {
+      $elastica_index = $this->getElasticaIndex($index);
+      if (empty($elastica_index)) {
+        return $search_result;
+      }
+
+      $elastica_type = $elastica_index->getType($index->machine_name);
+      if (empty($elastica_type)) {
+        return $search_result;
+      }
+
+      $elastica_search->addIndex($index);
+      $elastica_search->addType($elastica_type);
+    }
+
+    $response = $elastica_search->search();
 
     // Show Elasticsearch query string from Elastica
     // as json output when views debug output is enabled.
@@ -602,7 +666,7 @@ class SearchApiElasticsearchElastica extends SearchApiElasticsearchAbstractServi
       $elastica_query->setQuery($query_options['query_search_string']);
     }
     elseif (!empty($query_options['query_search_filter'])) {
-      $elastica_query->setFilter($query_options['query_search_filter']);
+      $elastica_query->setPostFilter($query_options['query_search_filter']);
     }
 
     // Sort.
