@@ -12,6 +12,7 @@ function create_child_recommendation($node, $mda)
     global $user;
     $child = new stdClass();
     $child->title = $node->title;
+    $child->body['und']= $node->body['und'];
     $child->type = $node->type;
     node_object_prepare($child); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
     $child->language = LANGUAGE_NONE; // Or e.g. 'en' if locale is enabled
