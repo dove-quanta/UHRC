@@ -235,7 +235,7 @@ function drpl01_form_alter(&$form, &$form_state, $form_id)
     if ($form_id == "recommendation_node_form") {
 
         $form["body"]['#access'] = 0;
-        $form["title"]['#access'] = 0;
+        #$form["title"]['#access'] = 0;
         $form['actions']["delete"]['#access'] = 0;
         $form['actions']["preview"]['#access'] = 0;
         $form['#validate'][] = "recommendation_validate_handler";
@@ -273,13 +273,13 @@ function comment_submit_handler(&$form, &$form_state)
 
 function recommendation_validate_handler(&$form, &$form_state)
 {
-    $title_size=strlen($form_state['values']['field_recommendation']['und'][0]['value']);
+    /*  $title_size=strlen($form_state['values']['field_recommendation']['und'][0]['value']);
     if($title_size>256){
        form_set_error('field_recommendation', 'Recommendation title must have less than 256 characters');
-    }
+    }*/
     if (form_get_errors())
         return;
-    $title = '';
+    $title = $form_state['values']['title'];
     $title .= '|' . $form_state['values']['field_recommendation']['und'][0]['value'];
     $title .= '|' . node_load($form_state['values']['field_thematic_area']['und'][0]['target_id'])->title;
     $title .= '|' . node_load($form_state['values']['field_mechanism']['und'][0]['target_id'])->title;
