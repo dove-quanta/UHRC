@@ -78,7 +78,7 @@ function get_mda_recommendation_data()
   <ul class='dropdown-menu'>
     <li><a href='#overlay=node/" . $nid . "/edit' ><i class='fa fa-pencil fa-fw'></i> Edit</a></li>
     <li><a href='view-comments?NID=" . $nid . "' ><i class='fa fa-comment fa-fw'></i> Comments</a></li>
-    <li><a href='linked-recommendation-table?NID=".$nid."' ><i class='fa fa-pencil fa-fw'></i> Linked recommendations</a></li>
+    <li><a href='linked-recommendation-table?NID=".$nid."' ><i class='fa fa-pencil fa-fw'></i>Other Responsible MDA</a></li>
     <li><a href='" . $filename . "' target='" . $target . "'><i class='fa fa-download fa-fw'></i> Download</a></li>
   </ul>
 </div><br><br><br><br><br><br>";

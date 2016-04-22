@@ -1,7 +1,7 @@
 <?php
 global $user;
-$node=user_load($user->uid);
-$MID=$node->field_mda['und'][0]['target_id']
+$node = user_load($user->uid);
+$MID = $node->field_mda['und'][0]['target_id']
 ?>
 <script>
     function load_url(url) {
@@ -20,28 +20,18 @@ $MID=$node->field_mda['und'][0]['target_id']
             <ul class="nav nav-pills nav-stacked ohrc-menu-list">
                 <li class><a><strong>Content Management Menu</strong></a></li>
                 <li class="divider"></li>
-                <li class="active"><a href="##" title="Admin dashboard"
-                                      onclick="load_url('mda-dashboard');">Dashboard</a></li>
-                <li class="dropdown"><a href="##" data-toggle="dropdown" title="">Recommendations<span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="##" onclick="load_url('mda-recommendation-table');">Your Recommendations</a></li>
-                        <li><a href="##" onclick="load_url('related-recommendation-table');">Related Recommendations</a>
-                        </li>
-
-                    </ul>
+                <li class="active">
+                    <a href="##" title="Admin dashboard" onclick="load_url('mda-dashboard');">Dashboard</a>
+                </li>
+                <li>
+                    <a href="##" title="Recommendations"
+                       onclick="load_url('mda-recommendation-table');">Recommendations</a>
                 </li>
                 <li class="divider"></li>
-                <li ><a href="##" title="Notifications"
-                        onclick="load_url('responsible-notifications?MDA=<?php echo $MID;?>');">Notifications</a></li>
-                <!--        <li class="dropdown">
-                          <a href="#" data-toggle="dropdown" title="">Users<span class="caret"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li>
-                              <a href="##" onclick="load_url('admin/people');">View Users</a>
-                            </li>
-                          </ul>
-                        </li>-->
+                <li>
+                    <a href="##" title="Notifications"
+                       onclick="load_url('responsible-notifications?MDA=<?php echo $MID; ?>');">Notifications</a>
+                </li>
             </ul>
         </div>
         <div class="tab-content ohrc-content">
