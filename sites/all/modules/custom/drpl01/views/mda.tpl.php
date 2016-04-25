@@ -27,6 +27,10 @@ $MID = $node->field_mda['und'][0]['target_id']
                     <a href="##" title="Recommendations"
                        onclick="load_url('mda-recommendation-table');">Recommendations</a>
                 </li>
+                <li>
+                    <a href="##" title="Recommendations"
+                       onclick="load_url('related-recommendation-table');">Related Recommendations</a>
+                </li>
                 <li class="divider"></li>
                 <li>
                     <a href="##" title="Notifications"
