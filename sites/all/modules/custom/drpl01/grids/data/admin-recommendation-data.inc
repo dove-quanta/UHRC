@@ -96,9 +96,15 @@ function get_admin_recommendation_data()
         $row[] = node_load($node->field_means_of_verification['und'][0]['target_id'])->title;
         $row[] = $node->field_status_of_implementation['und'][0]['value'];
         $output['aaData'][] = $row; */
+
+        $cmda="Contributor(s):<ul>";
+        foreach($node->field_contributing_mda['und'] as $cmdatid){
+            $cmda.="<li>".node_load($cmdatid['target_id'])->title."</li>";
+        }
+        $cmda.="</ul>";
         $date = empty($node->field_next_state_deadline) ? "" : new DateTime($node->field_next_state_deadline['und'][0]['value']);
         $row[] = empty($node->field_next_state_deadline) ? "" : $date->format('Y');
-        $row[] = node_load($node->field_responsible_mda['und'][0]['target_id'])->title;
+        $row[] = "Responsible:<br>".node_load($node->field_responsible_mda['und'][0]['target_id'])->title."<br>".$cmda;
         $row[] = empty($node->field_indicators) ? "" : $node->field_indicators['und'][0]['value'];
         $row[] = empty($node->field_baseline) ? "" : $node->field_baseline['und'][0]['value'];
         $row[] = empty($node->field_target) ? "" : $node->field_target['und'][0]['value'];

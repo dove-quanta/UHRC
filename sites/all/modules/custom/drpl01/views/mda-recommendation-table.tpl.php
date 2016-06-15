@@ -66,7 +66,7 @@ $SEARCH = isset($_GET['SEARCH']) ? $_GET['SEARCH'] : "";
             <th>Thematic area</th>
             <th>Mechanism and year</th>
             <th>Next State Report deadline</th>
-            <th>Responsible MDA</th>
+            <th>MDA</th>
             <th>Indicators</th>
             <th>Baseline</th>
             <th>Target</th>

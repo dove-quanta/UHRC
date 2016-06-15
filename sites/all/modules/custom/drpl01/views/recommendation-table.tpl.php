@@ -79,7 +79,7 @@ $year = str_replace("Year", "", $year);
             <th>Thematic area</th>
             <th>Mechanism and year</th>
             <th>Next State Report deadline</th>
-            <th>Responsible MDA</th>
+            <th>MDA</th>
             <th>Indicators</th>
             <th>Baseline</th>
             <th>Target</th>
